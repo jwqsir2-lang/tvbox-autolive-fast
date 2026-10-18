@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-把 zbds.top 的 IPTV4 直播列表转换成「老电视可用」的 TVBox 内嵌式配置。
+把 Supprise0901/TVBox_live 的直播列表转换成「老电视可用」的 TVBox 内嵌式配置。
 
 为什么需要这一步：
-  - 老电视（Android 4.x）走不了 https，而 live.zbds.top 的 http 地址会 301 到 https。
+  - 老电视（Android 4.x）走不了 https，https 流老电视解码也会失败。
   - 远程列表方式老电视根本下载不下来，必须把频道内嵌进配置文件。
   - 只保留纯 http:// 明文流，https 流老电视解码也会失败。
 
-输入：zbds 的 iptv4.txt（每行「频道名,url」，带 #genre# 分组标记）
+输入：supprise 的 live.txt（每行「频道名,url」，带 #genre# 分组标记）
 输出：TVBox JSON，lives 全部是 {group, channels:[{name, urls}]} 内嵌结构
 """
 
@@ -20,12 +20,9 @@ import sys
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
-# zbds 的 http 地址会 301 到 https，老电视访问不了；这两个镜像保持 https 但由
-# GitHub Actions（海外 IP）去拉取，老电视只要打开最终生成的配置即可。
+# 只用 supprise 这一个源（实测速度快），raw + gh-proxy 两条镜像互为容灾；
+# 老电视只要打开最终生成的配置即可，不需要自己下载列表。
 SOURCES = [
-    ("zbds", "https://live.zbds.top/tv/iptv4.txt"),
-    ("zbds", "https://gh-proxy.com/raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"),
-    ("zbds", "https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"),
     ("supprise", "https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"),
     ("supprise", "https://gh-proxy.com/raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt"),
 ]
