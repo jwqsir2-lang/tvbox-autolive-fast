@@ -5,7 +5,15 @@
 ```
 http://raw.githubusercontent.com/jwqsir2-lang/tvbox-autolive-fast/main/tvbox.json
 ```
+两个已验证可用的免翻墙地址（返回的是同一份配置：9 组 / 66 频道 / 142 线路，5 个点播站全在）：
 
+① gh-proxy（推荐——就是构建脚本自己在用的那个镜像）
+https://gh-proxy.com/raw.githubusercontent.com/jwqsir2-lang/tvbox-autolive-fast/main/tvbox.json
+
+② ghfast 备选
+https://ghfast.top/https://raw.githubusercontent.com/jwqsir2-lang/tvbox-autolive-fast/main/tvbox.json
+
+两个都实时代理 GitHub，每 6 小时自动重生成后这里自动就是最新的，不用额外维护。
 ## 说明
 
 - 单源：只从 **Supprise0901/TVBox_live**（实测播放速度最快的源）生成
@@ -26,15 +34,3 @@ http://raw.githubusercontent.com/jwqsir2-lang/tvbox-autolive-fast/main/tvbox.jso
 2. 点右上角「Run workflow」→ 绿色按钮确认
 3. 等 10 秒左右，重新下载 `tvbox.json` 即可
 
-## 要传到自己网站空间
-
-从仓库下载 [`tvbox.json`](./tvbox.json)，上传到 serv00 空间的 `public_html` 目录，
-然后电视端地址换成 `http://你的域名/tvbox.json`。
-
-## 文件
-
-| 文件 | 作用 |
-|---|---|
-| `tvbox.json` | 最终配置（电视端用这个） |
-| `build.py` | 生成脚本（GitHub Actions 跑的） |
-| `base.json` | 基础配置（站点/解析/flags，直播部分为空） |
